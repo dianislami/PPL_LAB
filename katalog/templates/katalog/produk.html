@@ -1,0 +1,210 @@
+{% extends 'katalog/base.html' %}
+{% block title %}Semua Produk - Isla'Store{% endblock %}
+
+{% block head %}
+<style>
+  .page-top {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 48px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--gray200);
+  }
+
+  .page-top h1 {
+    font-family: var(--serif);
+    font-size: 42px;
+    font-weight: 900;
+    letter-spacing: -1.5px;
+    line-height: 1;
+  }
+
+  .page-top p {
+    font-size: 13px;
+    color: var(--gray400);
+    font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── PRODUK GRID ── */
+  .produk-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1px;
+    background: var(--gray200);
+    border: 1px solid var(--gray200);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .produk-card {
+    background: var(--white);
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    transition: background var(--transition);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .produk-card:hover { background: #fafaf5; }
+
+  .produk-card:hover .card-cta { opacity: 1; transform: translateY(0); }
+
+  /* Colored top bar per kategori */
+  .produk-card::before {
+    content: '';
+    display: block;
+    height: 3px;
+    width: 100%;
+    background: var(--bar-color, var(--gray200));
+    transition: background var(--transition);
+  }
+
+  .produk-card[data-cat="Elektronik"] { --bar-color: #3b82f6; }
+  .produk-card[data-cat="Olahraga"]  { --bar-color: #ef4444; }
+  .produk-card[data-cat="Minuman"]   { --bar-color: #10b981; }
+  .produk-card[data-cat="Fashion"]   { --bar-color: #f59e0b; }
+
+  .card-img {
+    height: 380px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 72px;
+    background: var(--gray100);
+    border-bottom: 1px solid var(--gray200);
+    position: relative;
+  }
+
+  .card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+
+  .produk-card:hover .card-img img {
+    transform: scale(1.05);
+  }
+
+  .card-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+
+  .card-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+
+  .card-name {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 10px;
+    letter-spacing: -0.3px;
+  }
+
+  .card-desc {
+    font-size: 13px;
+    color: var(--gray600);
+    line-height: 1.65;
+    flex: 1;
+    margin-bottom: 20px;
+    font-weight: 300;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 16px;
+    border-top: 1px solid var(--gray100);
+  }
+
+  .card-price {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+
+  .card-stok {
+    font-size: 12px;
+    color: #10b981;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+
+  .card-cta {
+    opacity: 0;
+    transform: translateY(4px);
+    transition: all var(--transition);
+  }
+
+  /* ── FEATURED FIRST CARD (big) ── */
+  .produk-card.featured {
+    grid-column: span 2;
+    flex-direction: row;
+  }
+
+  .produk-card.featured .card-img {
+    width: 320px;
+    height: auto;
+    flex-shrink: 0;
+    border-bottom: none;
+    border-right: 1px solid var(--gray200);
+    font-size: 100px;
+  }
+
+  .produk-card.featured .card-name { font-size: 28px; }
+  .produk-card.featured .card-price { font-size: 28px; }
+  .produk-card.featured .card-desc { -webkit-line-clamp: 3; }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="page-top fade-up">
+  <div>
+    <h1>Katalog<br>Produk</h1>
+  </div>
+  <div style="text-align:right">
+    <p>{{ produk_list|length }} PRODUK TERSEDIA</p>
+    <p style="margin-top:4px;">2026 COLLECTION</p>
+  </div>
+</div>
+
+<div class="produk-grid">
+  {% for produk in produk_list %}
+  <a href="/produk/{{ produk.id }}/"
+     class="produk-card fade-up {% if forloop.first %}featured{% endif %}"
+     data-cat="{{ produk.kategori }}">
+    <div class="card-img">
+        <img src="{{ produk.gambar }}" alt="{{ produk.nama }}">
+    </div>
+    <div class="card-body">
+      <div class="card-meta">
+        <span class="tag">{{ produk.kategori }}</span>
+        <span class="card-stok">● {{ produk.stok }} unit</span>
+      </div>
+      <div class="card-name">{{ produk.nama }}</div>
+      <div class="card-desc">{{ produk.deskripsi }}</div>
+      <div class="card-footer">
+        <div class="card-price">Rp {{ produk.harga|floatformat:0 }}</div>
+        <span class="btn btn-dark card-cta">Detail →</span>
+      </div>
+    </div>
+  </a>
+  {% endfor %}
+</div>
+
+{% endblock %}

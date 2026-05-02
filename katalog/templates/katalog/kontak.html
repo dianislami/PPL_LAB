@@ -1,0 +1,353 @@
+{% extends 'katalog/base.html' %}
+{% block title %}Kontak - Isla'Store{% endblock %}
+
+{% block head %}
+<style>
+  .page-top {
+    margin-bottom: 64px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--gray200);
+    max-width: 600px;
+  }
+
+  .page-top .eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 16px;
+  }
+
+  .page-top h1 {
+    font-family: var(--serif);
+    font-size: 52px;
+    font-weight: 900;
+    letter-spacing: -2px;
+    line-height: 1.05;
+    margin-bottom: 16px;
+  }
+
+  .page-top p {
+    font-size: 16px;
+    color: var(--gray600);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  /* ── LAYOUT ── */
+  .kontak-layout {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 64px;
+    align-items: start;
+  }
+
+  /* ── KONTAK ITEMS ── */
+  .kontak-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--gray200);
+    border: 1px solid var(--gray200);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 40px;
+  }
+
+  .kontak-item {
+    background: var(--white);
+    padding: 28px 24px;
+    transition: background var(--transition);
+  }
+
+  .kontak-item:hover { background: var(--gray100); }
+
+  .kontak-item-icon {
+    font-size: 20px;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .kontak-item-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gray400);
+    margin-bottom: 6px;
+  }
+
+  .kontak-item-val {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--black);
+    line-height: 1.5;
+  }
+
+  .kontak-item-val a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid var(--gray200);
+    transition: border-color var(--transition);
+  }
+
+  .kontak-item-val a:hover { border-color: var(--black); }
+
+  /* ── MAP BOX ── */
+  .map-box {
+    background: var(--black);
+    border-radius: 6px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--gray600);
+    font-size: 48px;
+    gap: 12px;
+  }
+
+  .map-box p {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray600);
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar-card {
+    border: 1px solid var(--gray200);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+
+  .sidebar-card-head {
+    background: var(--black);
+    color: var(--white);
+    padding: 18px 24px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .sidebar-card-body { padding: 8px 0; }
+
+  .jam-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 24px;
+    border-bottom: 1px solid var(--gray100);
+    font-size: 14px;
+  }
+
+  .jam-row:last-child { border-bottom: none; }
+
+  .jam-day { color: var(--gray600); font-weight: 400; }
+
+  .jam-time {
+    font-weight: 600;
+    color: var(--black);
+  }
+
+  .jam-time.tutup { color: #ef4444; }
+
+  /* ── FAQ ── */
+  .faq-item {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--gray100);
+  }
+
+  .faq-item:last-child { border-bottom: none; }
+
+  .faq-q {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--black);
+  }
+
+  .faq-a {
+    font-size: 13px;
+    color: var(--gray600);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* ── CTA STRIP ── */
+  .cta-strip {
+    background: var(--yellow);
+    border-radius: 6px;
+    padding: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-top: 40px;
+  }
+
+  .cta-strip h3 {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--black);
+    letter-spacing: -0.5px;
+  }
+
+  .cta-strip p {
+    font-size: 13px;
+    color: var(--gray600);
+    margin-top: 4px;
+    font-weight: 300;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- Page Header -->
+<div class="page-top fade-up">
+  <div class="eyebrow">✦ Hubungi Kami</div>
+  <h1>Ada yang bisa kami bantu?</h1>
+  <p>Tim kami siap membantu pertanyaan produk, pemesanan, hingga pengiriman. Jangan ragu menghubungi kami.</p>
+</div>
+
+<div class="kontak-layout">
+
+  <!-- Kiri -->
+  <div>
+    <div class="kontak-list fade-up">
+      <div class="kontak-item">
+        <span class="kontak-item-icon">📍</span>
+        <div class="kontak-item-label">Alamat Toko</div>
+        <div class="kontak-item-val">Jl. Martin J.E. No. 31<br>Banda Aceh, 23111</div>
+      </div>
+      <div class="kontak-item">
+        <span class="kontak-item-icon">📞</span>
+        <div class="kontak-item-label">Telepon</div>
+        <div class="kontak-item-val">
+          <a href="tel:+6261123456">+62 61 1234567</a>
+        </div>
+      </div>
+      <div class="kontak-item">
+        <span class="kontak-item-icon">📱</span>
+        <div class="kontak-item-label">WhatsApp</div>
+        <div class="kontak-item-val">
+          <a href="https://wa.me/628123456789">+62 812-3456-789</a>
+        </div>
+      </div>
+      <div class="kontak-item">
+        <span class="kontak-item-icon">✉️</span>
+        <div class="kontak-item-label">Email</div>
+        <div class="kontak-item-val">
+          <a href="mailto:info@islastore.id">info@islastore.id</a>
+        </div>
+      </div>
+      <div class="kontak-item">
+        <span class="kontak-item-icon">📸</span>
+        <div class="kontak-item-label">Instagram</div>
+        <div class="kontak-item-val">
+          <a href="#">@isla_store</a>
+        </div>
+      </div>
+      <div class="kontak-item">
+        <span class="kontak-item-icon">🎵</span>
+        <div class="kontak-item-label">TikTok</div>
+        <div class="kontak-item-val">
+          <a href="#">@isla_store</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="map-box fade-up">
+      🗺️
+      <p>Jl. Martin J.E. No. 31, Banda Aceh</p>
+    </div>
+
+    <div class="cta-strip fade-up">
+      <div>
+        <h3>Mau pesan via WhatsApp?</h3>
+        <p>Respons cepat, proses mudah, pengiriman langsung.</p>
+      </div>
+      <a href="https://wa.me/628123456789" class="btn btn-dark" style="white-space:nowrap; flex-shrink:0;">
+        Chat Sekarang →
+      </a>
+    </div>
+  </div>
+
+  <!-- Kanan: Sidebar -->
+  <div class="fade-up">
+
+    <!-- Jam Operasional -->
+    <div class="sidebar-card" style="margin-bottom:24px;">
+      <div class="sidebar-card-head">Jam Operasional</div>
+      <div class="sidebar-card-body">
+        <div class="jam-row">
+          <span class="jam-day">Senin - Jumat</span>
+          <span class="jam-time">08.00 - 21.00</span>
+        </div>
+        <div class="jam-row">
+          <span class="jam-day">Sabtu</span>
+          <span class="jam-time">09.00 - 20.00</span>
+        </div>
+        <div class="jam-row">
+          <span class="jam-day">Minggu</span>
+          <span class="jam-time">10.00 - 18.00</span>
+        </div>
+        <div class="jam-row">
+          <span class="jam-day">Hari Libur</span>
+          <span class="jam-time tutup">Tutup</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pembayaran -->
+    <div class="sidebar-card" style="margin-bottom:24px;">
+      <div class="sidebar-card-head">Metode Pembayaran</div>
+      <div class="sidebar-card-body">
+        <div class="jam-row">
+          <span class="jam-day">Transfer Bank</span>
+          <span class="jam-time" style="font-size:16px;">🏦</span>
+        </div>
+        <div class="jam-row">
+          <span class="jam-day">QRIS</span>
+          <span class="jam-time" style="font-size:16px;">📲</span>
+        </div>
+        <div class="jam-row">
+          <span class="jam-day">GoPay / OVO</span>
+          <span class="jam-time" style="font-size:16px;">💚</span>
+        </div>
+        <div class="jam-row">
+          <span class="jam-day">COD (Aceh)</span>
+          <span class="jam-time" style="font-size:16px;">🛵</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-head">FAQ</div>
+      <div class="sidebar-card-body">
+        <div class="faq-item">
+          <div class="faq-q">Berapa lama pengiriman?</div>
+          <div class="faq-a">2-5 hari kerja ke seluruh Indonesia. Area Aceh bisa same-day.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Apakah bisa retur?</div>
+          <div class="faq-a">Ya, dalam 7 hari jika produk cacat atau tidak sesuai deskripsi.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Ada gratis ongkir?</div>
+          <div class="faq-a">Gratis ongkir untuk pembelian di atas Rp 200.000.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

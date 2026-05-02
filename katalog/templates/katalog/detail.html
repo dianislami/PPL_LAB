@@ -1,0 +1,248 @@
+{% extends 'katalog/base.html' %}
+{% block title %}{{ produk.nama }} - Isla'Store{% endblock %}
+
+{% block head %}
+<style>
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--gray400);
+    text-decoration: none;
+    margin-bottom: 48px;
+    transition: color var(--transition);
+  }
+
+  .back-link:hover { color: var(--black); }
+
+  /* ── LAYOUT ── */
+  .detail-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  /* ── LEFT: IMAGE ── */
+  .detail-img-wrap {
+    position: sticky;
+    top: 90px;
+  }
+
+  .detail-img {
+    background: var(--gray100);
+    border: 1px solid var(--gray200);
+    border-radius: 6px;
+    height: 570px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 120px;
+    margin-bottom: 16px;
+  }
+
+  .detail-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+   }
+  
+   .detail-img {
+    overflow: hidden;
+  }
+
+  .detail-img img {
+    transition: transform 0.4s ease;
+  }
+
+  .detail-img:hover img {
+    transform: scale(1.05);
+  }
+
+  .detail-img-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--gray200);
+    border: 1px solid var(--gray200);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .img-meta-item {
+    background: var(--white);
+    padding: 14px 18px;
+  }
+
+  .img-meta-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gray400);
+    margin-bottom: 4px;
+  }
+
+  .img-meta-val {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--black);
+  }
+
+  /* ── RIGHT: INFO ── */
+  .detail-info {}
+
+  .detail-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .detail-name {
+    font-family: var(--serif);
+    font-size: clamp(28px, 3.5vw, 44px);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -1.5px;
+    margin-bottom: 24px;
+  }
+
+  .detail-price {
+    font-family: var(--serif);
+    font-size: 48px;
+    font-weight: 900;
+    letter-spacing: -2px;
+    line-height: 1;
+    margin-bottom: 32px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--gray200);
+  }
+
+  .detail-price sup {
+    font-size: 22px;
+    letter-spacing: 0;
+    vertical-align: super;
+    font-weight: 400;
+    color: var(--gray400);
+  }
+
+  .detail-desc {
+    font-size: 15px;
+    color: var(--gray600);
+    line-height: 1.8;
+    font-weight: 300;
+    margin-bottom: 36px;
+  }
+
+  .spek-heading {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gray400);
+    margin-bottom: 16px;
+  }
+
+  .spek-list {
+    list-style: none;
+    margin-bottom: 36px;
+  }
+
+  .spek-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--gray100);
+    font-size: 14px;
+    color: var(--black);
+    font-weight: 400;
+  }
+
+  .spek-list li::before {
+    content: '—';
+    color: var(--yellow);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .spek-list li:last-child { border-bottom: none; }
+
+  .detail-actions {
+    display: flex;
+    gap: 12px;
+    padding-top: 32px;
+    border-top: 1px solid var(--gray200);
+  }
+
+  .detail-actions .btn { flex: 1; justify-content: center; padding: 14px; }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<a href="/produk/" class="back-link fade-up">← Kembali ke Katalog</a>
+
+<div class="detail-layout">
+
+  <!-- Kiri: Gambar -->
+  <div class="detail-img-wrap fade-up">
+    <div class="detail-img">
+        <img src="{{ produk.gambar }}" alt="{{ produk.nama }}">
+    </div>
+    <div class="detail-img-meta">
+      <div class="img-meta-item">
+        <div class="img-meta-label">ID Produk</div>
+        <div class="img-meta-val">#{{ produk.id }}</div>
+      </div>
+      <div class="img-meta-item">
+        <div class="img-meta-label">Stok</div>
+        <div class="img-meta-val" style="color:#10b981;">{{ produk.stok }} unit</div>
+      </div>
+      <div class="img-meta-item">
+        <div class="img-meta-label">Kategori</div>
+        <div class="img-meta-val">{{ produk.kategori }}</div>
+      </div>
+      <div class="img-meta-item">
+        <div class="img-meta-label">Status</div>
+        <div class="img-meta-val" style="color:#10b981;">Tersedia</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Kanan: Info -->
+  <div class="detail-info fade-up">
+    <div class="detail-eyebrow">
+      <span class="tag">{{ produk.kategori }}</span>
+      <span style="font-size:12px; color:var(--gray400);">✦ Produk Pilihan</span>
+    </div>
+
+    <h1 class="detail-name">{{ produk.nama }}</h1>
+
+    <div class="detail-price">
+      <sup>Rp </sup>{{ produk.harga|floatformat:0 }}
+    </div>
+
+    <p class="detail-desc">{{ produk.deskripsi }}</p>
+
+    <div class="spek-heading">Spesifikasi Produk</div>
+    <ul class="spek-list">
+      {% for spek in produk.spesifikasi %}
+      <li>{{ spek }}</li>
+      {% endfor %}
+    </ul>
+
+    <div class="detail-actions">
+      <a href="/kontak/" class="btn btn-yellow">Pesan Sekarang</a>
+      <a href="/produk/" class="btn btn-ghost">Produk Lain</a>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

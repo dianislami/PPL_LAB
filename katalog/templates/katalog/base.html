@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Isla'Store{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --black:   #0a0a0a;
+      --white:   #fafaf8;
+      --yellow:  #f5c518;
+      --gray100: #f0efeb;
+      --gray200: #e0dfd9;
+      --gray400: #a0998f;
+      --gray600: #5a554e;
+      --serif:   'Playfair Display', Georgia, serif;
+      --sans:    'DM Sans', sans-serif;
+      --radius:  4px;
+      --transition: 0.22s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--white);
+      color: var(--black);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--black);
+      border-bottom: 1px solid #222;
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+
+    .brand em {
+      font-style: normal;
+      color: var(--yellow);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .nav-links a {
+      color: var(--gray400);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: var(--radius);
+      transition: color var(--transition), background var(--transition);
+    }
+
+    .nav-links a:hover { color: var(--white); }
+
+    .nav-links a.active {
+      color: var(--yellow);
+      background: rgba(245,197,24,0.08);
+    }
+
+    /* ── MAIN ── */
+    main {
+      flex: 1;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 64px 40px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black);
+      color: var(--gray600);
+      padding: 28px 40px;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+    }
+
+    .footer-brand {
+      font-family: var(--serif);
+      font-weight: 700;
+      color: var(--white);
+      font-size: 16px;
+    }
+
+    /* ── UTILITIES ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 22px;
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+
+    .btn-dark {
+      background: var(--black);
+      color: var(--white);
+    }
+
+    .btn-dark:hover {
+      background: #222;
+      transform: translateY(-1px);
+    }
+
+    .btn-yellow {
+      background: var(--yellow);
+      color: var(--black);
+    }
+
+    .btn-yellow:hover {
+      background: #e0b416;
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--black);
+      border: 1.5px solid var(--gray200);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--black);
+      background: var(--gray100);
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 3px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      background: var(--gray100);
+      color: var(--gray600);
+    }
+
+    /* ── PAGE ENTRY ANIMATION ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-up {
+      animation: fadeUp 0.5s var(--transition) both;
+    }
+
+    .fade-up:nth-child(2) { animation-delay: 0.08s; }
+    .fade-up:nth-child(3) { animation-delay: 0.16s; }
+    .fade-up:nth-child(4) { animation-delay: 0.24s; }
+    .fade-up:nth-child(5) { animation-delay: 0.32s; }
+  </style>
+  {% block head %}{% endblock %}
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="brand">Isla'<em>Store</em></a>
+    <div class="nav-links">
+      <a href="/" {% if request.path == '/' %}class="active"{% endif %}>Beranda</a>
+      <a href="/produk/" {% if '/produk/' in request.path %}class="active"{% endif %}>Produk</a>
+      <a href="/kontak/" {% if request.path == '/kontak/' %}class="active"{% endif %}>Kontak</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  {% block content %}{% endblock %}
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <span class="footer-brand">Isla'Store</span>
+    <span>&copy; 2026 - Website Katalog Produk</span>
+    <span>Banda Aceh, Aceh</span>
+  </div>
+</footer>
+
+</body>
+</html>
